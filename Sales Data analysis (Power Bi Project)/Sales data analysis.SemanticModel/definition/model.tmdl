@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Dim Customers","Dim Product","Dim Promotion","Fact Table","Measure Table"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Dim Customers'
+ref table 'Dim Product'
+ref table 'Fact Table'
+ref table 'Dim Promotion'
+ref table DateTableTemplate_8f97f9de-acdc-482b-8e01-e6f16a0f8120
+ref table 'Date table 1'
+ref table LocalDateTable_2e434717-08c7-49a1-a878-92dddfc4c7b8
+ref table 'Date table 2'
+ref table LocalDateTable_7a70c8ff-f853-4005-aa62-9597eb61b11a
+ref table 'Measure Table'
+
+ref cultureInfo en-US
+

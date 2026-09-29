@@ -1,0 +1,73 @@
+table 'Dim Promotion'
+	lineageTag: 788d135a-f59c-4d67-ab03-443041e1a750
+
+	measure 'Sum Dim' = SUM('Fact Table'[Total Sales])
+		formatString: 0
+		lineageTag: 7ddac64f-28ad-4a45-bb76-937586070710
+
+	column PromotionID
+		dataType: string
+		lineageTag: 28c27878-12bc-467a-b4b3-7c531d8f73ce
+		summarizeBy: none
+		sourceColumn: PromotionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Promotion Name'
+		dataType: string
+		lineageTag: 92a47e38-7e19-42d4-b42a-dd4145246311
+		summarizeBy: none
+		sourceColumn: Promotion Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ad Type'
+		dataType: string
+		lineageTag: 20e0aced-42f3-4880-88fd-51fdfc3426a7
+		summarizeBy: none
+		sourceColumn: Ad Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Coupon Code'
+		dataType: string
+		lineageTag: 282f6517-1e30-4517-8ab9-ee80f62d0482
+		summarizeBy: none
+		sourceColumn: Coupon Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price Reduction Type'
+		dataType: string
+		lineageTag: 86ecac3e-0e53-483c-96d2-ee359080911e
+		summarizeBy: none
+		sourceColumn: Price Reduction Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Percentage
+		dataType: int64
+		formatString: 0
+		lineageTag: bc0a427d-3daf-44e0-a0f8-cc2b47b39fb5
+		summarizeBy: none
+		sourceColumn: Percentage
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Dim Promotion' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("D:\Data Analytics\Power Bi\Store Data.xlsx"), null, true),
+				    #"Dim Promotion _Sheet" = Source{[Item="Dim Promotion ",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Dim Promotion _Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Promotion Name", type text}, {"Ad Type", type text}, {"Coupon Code", type text}, {"Price Reduction Type", type text}, {"PromotionID", type text}}),
+				    #"Added Conditional Column" = Table.AddColumn(#"Changed Type", "Percentage", each if [PromotionID] = "PR001" then 20 else if [PromotionID] = "PR002" then 10 else if [PromotionID] = "PR003" then 50 else if [PromotionID] = "PR004" then 50 else 70),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Percentage", Int64.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
