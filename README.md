@@ -206,30 +206,6 @@ The dashboard can be used to identify:
 
 ---
 
-## 📁 Project Structure
-
-```text
-Sales-data-Analysis-Power-Bi/
-│
-├── Dataset/
-│   └── sales_data.xlsx
-│
-├── Dashboard/
-│   └── Sales_Data_Analysis.pbix
-│
-├── images/
-│   ├── dashboard.png
-│   ├── sales-analysis.png
-│   └── performance.png
-│
-├── README.md
-│
-└── requirements/
-```
-
-Update the folder names above according to the **actual files in your repository**.
-
----
 
 ## ▶️ How to Use
 
