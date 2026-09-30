@@ -190,7 +190,7 @@ The dashboard can be used to identify:
 
 ### 🏠 Dashboard Overview
 
-![Sales Dashboard](images/sales-dashboard.png)
+![Sales Dashboard](images/sales_dashboard.png)
 
 ---
 
